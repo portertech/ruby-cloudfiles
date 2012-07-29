@@ -1,6 +1,8 @@
 require 'rubygems'
 require 'uri'
 require 'json'
+require 'net/http'
+require 'net/https'
 
 class ClientException < StandardError
   attr_reader :scheme, :host, :port, :path, :query, :status, :reason, :devices
