@@ -50,6 +50,9 @@ module CloudFiles
     attr_reader :proxy_host
     attr_reader :proxy_port
 
+    # Optional connection read timeout variable
+    attr_reader :read_timeout
+
     # Creates a new CloudFiles::Connection object.  Uses CloudFiles::Authentication to perform the login for the connection.
     # The authuser is the Rackspace Cloud username, the authkey is the Rackspace Cloud API key.
     #
@@ -89,6 +92,7 @@ module CloudFiles
         @snet = ENV['RACKSPACE_SERVICENET'] || options[:snet]
         @proxy_host = options[:proxy_host]
         @proxy_port = options[:proxy_port]
+        @read_timeout = options[:read_timeout] || 60
       else
         @authuser = args[0] ||( raise CloudFiles::Exception::Authentication, "Must supply the username as the first argument")
         @authkey = args[1] || (raise CloudFiles::Exception::Authentication, "Must supply the API key as the second argument")

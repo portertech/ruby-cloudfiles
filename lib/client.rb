@@ -149,7 +149,7 @@ private
   end
 
 public
-  def self.http_connection(url, proxy_host=nil, proxy_port=nil, read_timeout=300)
+  def self.http_connection(url, proxy_host=nil, proxy_port=nil, read_timeout=60)
     parsed = URI::parse(url)
     unless parsed.scheme =~ /^https?$/
       raise ClientException.new("Cannot handle protocol scheme #{parsed.scheme} for #{url} %s")
