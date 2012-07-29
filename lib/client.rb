@@ -149,13 +149,13 @@ private
   end
 
 public
-  def self.http_connection(url, proxy_host=nil, proxy_port=nil, timeout=300)
+  def self.http_connection(url, proxy_host=nil, proxy_port=nil, read_timeout=300)
     parsed = URI::parse(url)
     unless parsed.scheme =~ /^https?$/
       raise ClientException.new("Cannot handle protocol scheme #{parsed.scheme} for #{url} %s")
     end
     conn = Net::HTTP::Proxy(proxy_host, proxy_port).new(parsed.host, parsed.port)
-    conn.read_timeout = timeout
+    conn.read_timeout = read_timeout
     if parsed.scheme == "https"
       conn.use_ssl = true
       conn.verify_mode = OpenSSL::SSL::VERIFY_NONE
