@@ -474,14 +474,14 @@ class CloudfilesContainerTest < Test::Unit::TestCase
   def test_sync_to
     connection = stub(:storagehost => 'test.storage.example', :storagepath => '/dummy/path', :storageport => 443, :storagescheme => 'https', :cdnmgmthost => 'cdm.test.example', :cdnmgmtpath => '/dummy/path', :cdnmgmtport => 443, :cdnmgmtscheme => 'https', :cdn_available? => false, :cdnurl => 'http://foo.test.example/container', :storageurl => 'http://foo.test.example/container', :authtoken => "dummy token")
     SwiftClient.stubs(:head_container).returns({'x-container-sync-to' => 'test_container_2','x-container-sync-key' => 'foo'})
-    @container = CloudFiles::Container.new(connection, "test_container")
+    @container = CloudFiles::Container.new(connection, 'test_container')
     assert_equal @container.sync_to, 'test_container_2'
   end
   
   def test_sync_key
     connection = stub(:storagehost => 'test.storage.example', :storagepath => '/dummy/path', :storageport => 443, :storagescheme => 'https', :cdnmgmthost => 'cdm.test.example', :cdnmgmtpath => '/dummy/path', :cdnmgmtport => 443, :cdnmgmtscheme => 'https', :cdn_available? => false, :cdnurl => 'http://foo.test.example/container', :storageurl => 'http://foo.test.example/container', :authtoken => "dummy token")
     SwiftClient.stubs(:head_container).returns({'x-container-sync-to' => 'test_container_2','x-container-sync-key' => 'foo'})
-    @container = CloudFiles::Container.new(connection, "test_container")
+    @container = CloudFiles::Container.new(connection, 'test_container')
     assert_equal @container.sync_key, 'foo'
   end
 
