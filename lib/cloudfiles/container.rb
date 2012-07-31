@@ -45,7 +45,15 @@ module CloudFiles
           response = SwiftClient.head_container(self.connection.storageurl, self.connection.authtoken, escaped_name)
           resphash = {}
           response.to_hash.select { |k,v| k.match(/^x-container-meta/) }.each { |x| resphash[x[0]] = x[1].to_s }
-          {:bytes => response["x-container-bytes-used"].to_i, :count => response["x-container-object-count"].to_i, :metadata => resphash, :container_read => response["x-container-read"], :container_write => response["x-container-write"]}
+          {
+            :bytes => response["x-container-bytes-used"].to_i,
+            :count => response["x-container-object-count"].to_i,
+            :metadata => resphash,
+            :container_read => response["x-container-read"],
+            :container_write => response["x-container-write"],
+            :sync_to => response['x-container-sync-to'],
+            :sync_key => response['x-container-sync-key']
+          }
         rescue ClientException => e
           raise CloudFiles::Exception::NoSuchContainer, "Container #{@name} does not exist" unless (e.status.to_s =~ /^20/)
         end
