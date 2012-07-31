@@ -124,6 +124,16 @@ module CloudFiles
       self.container_metadata[:count]
     end
 
+    # Container synchronization remote container
+    def sync_to
+      self.container_metadata[:sync_to]
+    end
+
+    # Container synchronization secret
+    def sync_key
+      self.container_metadata[:sync_key]
+    end
+
     # Returns true if the container is public and CDN-enabled.  Returns false otherwise.
     #
     # Aliased as container.public?
